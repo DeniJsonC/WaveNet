@@ -42,18 +42,18 @@ python evaluation.py -dirA images_folder_path -dirB images_folder_path -type ima
 ## Result  
 
 - <details close>
-<summary><b>- Quantitative Evaluation on LOL/FiveK/VE-LOL/SID/SICE/DARK FACE datasets.</b></summary>
+  <summary><b>- Quantitative Evaluation on LOL/FiveK/VE-LOL/SID/SICE/DARK FACE datasets.</b></summary>
 
-![result1](./figure/result.png)
-![result2](./figure/rank.png) 
+    ![result1](./figure/result.png)
+    ![result2](./figure/rank.png) 
 
 
 </details>  
 
 - <details close>
-<summary><b>- Qualitative Evaluation on LOL/FiveK/VE-LOL/SID/SICE/DARK FACE datasets.</b></summary>
+  <summary><b>- Qualitative Evaluation on LOL/FiveK/VE-LOL/SID/SICE/DARK FACE datasets.</b></summary>
 
-![result3](./figure/visual.png)
+    ![result3](./figure/visual.png)
 
 
 </details>  
