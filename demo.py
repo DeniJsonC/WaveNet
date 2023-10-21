@@ -15,7 +15,7 @@ from model.WaveNet import WaveNet_S,WaveNet_T,WaveNet_B
 
 parser = argparse.ArgumentParser(description='Demo Image Enhancement')
 # ####LOL
-parser.add_argument('--input_dir', default='/Users/dangjiachen/Desktop/LLIE/dataset/LOLdataset/eval15/low', type=str, help='Input images')
+parser.add_argument('--input_dir', default='../dataset/LOLdataset/eval15/low', type=str, help='Input images')
 ####5k
 # parser.add_argument('--input_dir', default='../dataset/MITfivek/test/low', type=str, help='Input images')
 #####SICE

@@ -107,7 +107,7 @@ def measure_dirs(dirA, dirB, use_gpu, verbose=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-dirA', default='./visual/LOL', type=str)
-    parser.add_argument('-dirB', default='/Users/dangjiachen/Desktop/LLIE/dataset/LOLdataset/eval15/high', type=str)
+    parser.add_argument('-dirB', default='../dataset/LOLdataset/eval15/high', type=str)
     parser.add_argument('-type', default='png')
     parser.add_argument('--use_gpu', default=False)
     args = parser.parse_args()
