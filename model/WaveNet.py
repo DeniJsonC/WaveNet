@@ -268,7 +268,7 @@ def WaveNet_B(pretrained=False, **kwargs):
     dec_mlp_ratios=[2,2,2]
     enc_dims = [128,192,256]
     dec_dims=[256,192,128]
-    use_asff=False # For training FvieK: False
+    use_asff=True # For training FvieK: False
    
     model = WaveNet(encode_layers, decode_layers,enc_dims, dec_dims, transitions=transitions,
                      enc_mlp_ratios=enc_mlp_ratios,dec_mlp_ratios=dec_mlp_ratios, height=9,norm_layer=LayerNorm, use_asff=use_asff, **kwargs)
