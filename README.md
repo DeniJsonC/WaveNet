@@ -35,7 +35,7 @@ python demo.py --input_dir images_folder_path --result_dir save_images_here --we
 **All pre-trained models can be found in the folder "checkpoints/$<$dataset$>$"
 
 ## Train  
-Training for Image Enhancement is provided in <a href="Real_Denoising/README.md#training">TRAINING.md</a></td>. Here is a summary table containing hyperlinks for easy navigation:
+Training for Image Enhancement is provided in <a href="basicsr/TRAINING.md">TRAINING.md</a></td>. Here is a summary table containing hyperlinks for easy navigation:
 
 <table>
   <tr>
