@@ -1,0 +1,134 @@
+# general settings
+name: WaveNet_B_5k
+model_type: ImageCleanModel
+scale: 1
+num_gpu: 1  # set num_gpu: 0 for cpu mode
+manual_seed: 5
+
+# dataset and data loader settings
+#### datasets
+datasets:
+  train:
+    name: TrainSet
+    type: Dataset_PairedImage
+    dataroot_gt: ../dataset/MITfivek/train/high/
+    dataroot_lq: ../dataset/MITfivek/train/low/
+    geometric_augs: true
+
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
+
+    # data loader
+    use_shuffle: true
+    num_worker_per_gpu: 8
+    batch_size_per_gpu: 8
+
+    GT_size: 256     # size you want to crop out as input sample.
+    LQ_size: 256
+    use_flip: false
+    use_rot: false
+    color: RGB
+
+
+    ### -------------Multi-scale Training Strategy--------------------------
+    batch_sizes: [1,1,1,2]             # Batch size per gpu   
+    min_patch_size: 192
+    step: 3
+    sort: 0 #1 represents descending and 0 represents ascending
+    stride: 32
+    patience: 4
+    state: 1 # 0 means start with crop 1 means start with resize
+    ### ------------------------------------------------------------
+
+    dataset_enlarge_ratio: 1
+    prefetch_mode: ~
+
+  val:
+    name: ValSet
+    type: Dataset_PairedImage
+    dataroot_gt: ../dataset/MITfivek/test/high/
+    dataroot_lq: ../dataset/MITfivek/test/low/
+    io_backend:
+      type: disk
+    val_crop: 
+
+
+# network structures
+network_g:
+  type: WaveNet_B
+  use_asff: false
+
+
+# path
+path:
+  pretrain_network_g: ~
+  strict_load_g: true
+  resume_state: ~
+
+# training settings
+train:
+  total_epochs: 120
+  total_iter: 14000
+  warmup_iter: -1 # no warm up
+  use_grad_clip: true
+
+  # Split 300k iterations into two cycles. 
+  # 1st cycle: fixed 3e-4 LR for 92k iters. 
+  # 2nd cycle: cosine annealing (3e-4 to 1e-6) for 208k iters.
+  scheduler:
+    type: CosineAnnealingRestartCyclicLR
+    periods: [55, 65]       
+    restart_weights: [1,1]
+    eta_mins: [0.000125,0.000001]   
+  
+  mixing_augs:
+    mixup: true
+    mixup_beta: 1.2
+    use_identity: true
+
+  optim_g:
+    type: AdamW
+    lr: !!float 1.25e-4
+    # weight_decay: !!float 1e-4
+    betas: [0.9, 0.999]
+  
+  # losses
+  pixel_opt:
+    type: ULoss
+    loss_weight: 1
+    reduction: mean
+
+# validation settings
+val:
+  window_size: 4
+  val_freq: !!float 1e2
+  save_img: false
+  rgb2bgr: true
+  use_image: false
+  max_minibatch: 8
+  val_crop:
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 0
+      test_y_channel: false
+    ssim:
+      type: calculate_ssim
+      crop_border: 0
+      test_y_channel: false
+
+# logging settings
+logger:
+  print_freq: 100
+  save_checkpoint_freq: !!float 1e2
+  use_tb_logger: true
+  wandb:
+    project: ~
+    resume_id: ~
+
+# dist training settings
+dist_params:
+  backend: nccl
+  port: 29500

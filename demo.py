@@ -11,7 +11,7 @@ from glob import glob
 
 import cv2
 import argparse
-from model.WaveNet import WaveNet_S,WaveNet_T,WaveNet_B
+from basicsr.models.archs.WaveNet_arch import WaveNet_S,WaveNet_T,WaveNet_B
 
 parser = argparse.ArgumentParser(description='Demo Image Enhancement')
 # ####LOL
@@ -39,7 +39,7 @@ parser.add_argument('--input_dir', default='../dataset/LOLdataset/eval15/low', t
 
 parser.add_argument('--result_dir', default='./visual/LOL/', type=str, help='Directory for results')
 parser.add_argument('--weights',
-                    default='./WaveNet_B_LOL.pth', type=str,
+                    default='./checkpoints/SID/WaveNet_B_sid.pth', type=str,
                     help='Path to weights')
 
 args = parser.parse_args()
