@@ -30,6 +30,8 @@ Test on the local environment:
 
 To test the pre-trained models for enhancing your images, run
 ```
+cd basicsr
+
 python demo.py --input_dir images_folder_path --result_dir save_images_here --weights path_to_models
 ```
 **All pre-trained models can be found in the folder "checkpoints/$<$dataset$>$"
@@ -71,6 +73,8 @@ For the preparation of dataset, see [datasets/README.md](datasets/README.md).
  
 - To test the PSNR, SSIM and LPIPS of *image enhancement*, see [evaluation.py](./evaluation.py) and run
 ```
+cd basicsr
+
 python evaluation.py -dirA images_folder_path -dirB images_folder_path -type image_data_type --use_gpu use_gpu_or_not
 ```
 
