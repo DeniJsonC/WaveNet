@@ -20,7 +20,13 @@ class Measure():
         self.model = lpips.LPIPS(net=net)
         self.model.to(self.device)
 
-    def measure(self, imgA, imgB):
+    def measure(self, imgA, imgB,use_mean='False'):
+        if use_mean:
+            mean_restored = cv2.cvtColor(imgA.astype(np.float32), cv2.COLOR_BGR2GRAY).mean()
+            mean_target = cv2.cvtColor(imgB.astype(np.float32), cv2.COLOR_BGR2GRAY).mean()
+            imgA = np.clip(imgA * (mean_target / mean_restored), 0, 1)
+            print(imgA.dtype)
+            # imgA = imgA * (mean_target / mean_restored)
         return [float(f(imgA, imgB)) for f in [self.psnr, self.ssim, self.lpips]]
 
     def lpips(self, imgA, imgB, model=None):
@@ -33,7 +39,7 @@ class Measure():
         if gray_scale:
             score, diff = ssim(cv2.cvtColor(imgA, cv2.COLOR_RGB2GRAY), cv2.cvtColor(imgB, cv2.COLOR_RGB2GRAY), full=True)
         else:
-            score, diff = ssim(imgA, imgB, full=True, channel_axis=2)
+            score, diff = ssim(imgA, imgB,full=True, channel_axis=2)
         return score
 
     def psnr(self, imgA, imgB):
@@ -106,8 +112,8 @@ def measure_dirs(dirA, dirB, use_gpu, verbose=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-dirA', default='./visual/LOL', type=str)
-    parser.add_argument('-dirB', default='../dataset/LOLdataset/eval15/high', type=str)
+    parser.add_argument('-dirA', default='../visual/LOL/', type=str)
+    parser.add_argument('-dirB', default='/Users/dangjiachen/Desktop/LLIE/dataset/LOLdataset/eval15/high', type=str)
     parser.add_argument('-type', default='png')
     parser.add_argument('--use_gpu', default=False)
     args = parser.parse_args()
