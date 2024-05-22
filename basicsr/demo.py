@@ -103,7 +103,10 @@ for file_ in files:
     # input_ =transforms.CenterCrop((512,512))(input_)
     restored=input_.unsqueeze(0)
     with torch.no_grad():
-        restored = model(restored)
+        # for cpu
+        # restored = model(restored)
+        # for gpu
+          retored = model(restored.cuda())
 
     # print(restored.shape)
     restored = torch.clamp(restored, 0, 1)
