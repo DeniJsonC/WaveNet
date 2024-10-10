@@ -106,7 +106,7 @@ for file_ in files:
         # for cpu
         # restored = model(restored)
         # for gpu
-          retored = model(restored.cuda())
+          restored = model(restored.cuda())
 
     # print(restored.shape)
     restored = torch.clamp(restored, 0, 1)
