@@ -162,7 +162,7 @@ def basic_blocks(embed_dims, index, layers, height=6,mlp_ratio=3., bias=False,  
     return blocks
 
 class WaveNet(nn.Module):
-    """ USCT_U Network """
+    """ WaveNet Network """
     def __init__(self, encode_layers,decode_layers,
         enc_dims=None,dec_dims=None,transitions=None, enc_mlp_ratios=None, dec_mlp_ratios=None,
         bias=False, attn_drop_rate=0., drop_path_rate=0.,height=9,use_asff=True,
