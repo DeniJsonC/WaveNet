@@ -1,5 +1,5 @@
 # general settings
-name: WaveNet_T_LOL
+name: WaveNet_T_5k
 model_type: ImageCleanModel
 scale: 1
 num_gpu: 1  # set num_gpu: 0 for cpu mode
@@ -11,8 +11,8 @@ datasets:
   train:
     name: TrainSet
     type: Dataset_PairedImage
-    dataroot_gt: ../dataset/LOLdataset/our485/high/
-    dataroot_lq: ../dataset/LOLdataset/our485/low/
+    dataroot_gt: ../dataset/MITfivek/train/high/
+    dataroot_lq: ../dataset/MITfivek/train/low/
     geometric_augs: true
 
     filename_tmpl: '{}'
@@ -47,8 +47,8 @@ datasets:
   val:
     name: ValSet
     type: Dataset_PairedImage
-    dataroot_gt: ../dataset/LOLdataset/eval15/high/
-    dataroot_lq: ../dataset/LOLdataset/eval15/low/
+    dataroot_gt: ../dataset/MITfivek/test/high/
+    dataroot_lq: ../dataset/MITfivek/test/low/
     io_backend:
       type: disk
     val_crop: 
